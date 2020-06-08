@@ -1,0 +1,23 @@
+{
+    "users": {
+        "Name": "Pijus",
+        "password": "Grybas"
+    },
+    "sessions": [
+        {
+            "user": "Pijus",
+            "timestamp": 1591602188,
+            "sess_id": "6fjplscoomo1ostul08a7k4cas"
+        },
+        {
+            "user": "Pijus",
+            "timestamp": 1591603915,
+            "sess_id": "6fjplscoomo1ostul08a7k4cas"
+        },
+        {
+            "user": "Pijus",
+            "timestamp": 1591603985,
+            "sess_id": "6fjplscoomo1ostul08a7k4cas"
+        }
+    ]
+}
