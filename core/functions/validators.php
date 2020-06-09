@@ -135,6 +135,27 @@ function validate_fields_match($form_values, &$form, $params)
 }
 
 /**
+ * validate_unique_user checks for unique user in the database
+ *
+ * @param  array $form_values
+ * @param  array $form
+ * @return bool
+ */
+function validate_unique_user(array $form_values, array &$form): bool
+{
+    $db = new FileDB(DB_FILE);
+    $db->load();
+    $users =  $db->getData();
+    foreach ($users as $user) {
+        if (isset($form_values['Name']) === isset($user['Name'])) {
+            $form['error_message'] = 'User already exists';
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
  * validate_login checks if the user exists in the database
  *
  * @param  array $form_values
@@ -143,13 +164,17 @@ function validate_fields_match($form_values, &$form, $params)
  */
 function validate_login($form_values, &$form)
 {
-    $users = file_to_array('app/data/data.json');
-    foreach($users as $user){
-        if($form_values['name'] === $user['Name'] && $form_values['password'] === $user['password'] ){
+    $db = new FileDB(DB_FILE);
+    $db->load();
+    $users =  $db->getData();
+    foreach ($users as $user) {
+        $user['password'] = password_verify(isset($form_values['password']), isset($user['password']));
+        if (isset($form_values['Name']) === isset($user['Name']) && isset($form_values['password']) === isset($user['password'])) {
             return true;
         } else {
             $form['error_message'] = 'User does not exist';
         }
     }
+
     return false;
 }

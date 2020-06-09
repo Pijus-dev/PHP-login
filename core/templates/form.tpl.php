@@ -2,8 +2,8 @@
     <div class="notification success"><?php print $form['success_message']; ?></div>
 <?php elseif (isset($form['error_message'])) : ?>
     <div class="notification fail"><?php print $form['error_message']; ?></div>
-<?php endif; ?>
-<form <?php print form_attrs($form['attrs'] ?? []); ?>>
+    <?php endif; ?>
+    <form <?php print form_attrs($form['attrs'] ?? []); ?>>
     <!--Field generation start-->
     <?php foreach ($form['fields'] ?? [] as $field_id => $field) : ?>
 

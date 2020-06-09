@@ -1,23 +1,28 @@
 {
-    "users": {
-        "Name": "Pijus",
-        "password": "Grybas"
-    },
+    "users": [
+        {
+            "Name": "Rita",
+            "password": "$2y$10$M161MfLuEH6lARA9dLsae.35uPDa61oCYW4T\/oaR9.\/BavNc6B7Ru"
+        },
+        {
+            "Name": "Pijus",
+            "password": "$2y$10$3JdtpgQ\/T9L3kFQsTvDKLut2uAhoD\/we7Kyigdw5jXMPVLbGsDd9W"
+        },
+        {
+            "Name": "Laura",
+            "password": "$2y$10$CK2CVL3JUE9h1X1TrykaFuXdH11KGuny6lL9\/9ih5bY2Kws.eQJ7."
+        }
+    ],
     "sessions": [
         {
-            "user": "Pijus",
-            "timestamp": 1591602188,
-            "sess_id": "6fjplscoomo1ostul08a7k4cas"
+            "user": "Laura",
+            "timestamp": 1591708272,
+            "sess_id": "jr8tt2g58eae29d3bs70ughbbu"
         },
         {
-            "user": "Pijus",
-            "timestamp": 1591603915,
-            "sess_id": "6fjplscoomo1ostul08a7k4cas"
-        },
-        {
-            "user": "Pijus",
-            "timestamp": 1591603985,
-            "sess_id": "6fjplscoomo1ostul08a7k4cas"
+            "user": "Laura",
+            "timestamp": 1591708468,
+            "sess_id": "ar6d9l0tcr74bmkehsal9uqhqt"
         }
     ]
 }

@@ -1,6 +1,6 @@
 <header>
     <div class="container">
-        <img src="app/img/logo.png" alt="">
+        <img src="/img/logo.png" id="logo" alt="logo">
         <div class="nav">
             <?php if (isset($_SESSION['username']) && isset($_SESSION['password']) == true) : ?>
                 <a href="logout.php">LogOut</a>
