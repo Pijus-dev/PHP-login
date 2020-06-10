@@ -1,6 +1,8 @@
 <?php
 require_once '../bootloader.php';
-require_once ROOT . '/core/classes/FileDB.php';
+require_once ROOT . '/core/classes/FileDB.php'; 
+
+$db = new FileDB(DB_FILE);
 
 $form = [
     'attrs' => [
@@ -90,7 +92,7 @@ function form_success(&$form, $form_values)
 
     $db->setData($data);
     $db->save();
- 
+
     $form['success_message'] = 'Successfully registered';
 }
 
@@ -122,7 +124,8 @@ if ($form_values) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Generator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&family=Lexend+Tera&family=Vollkorn&display=swap">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" href="style/style.css">
 
 </head>
@@ -130,21 +133,9 @@ if ($form_values) {
 <body>
     <?php require '../core/templates/navbar.php'; ?>
     <main>
-        <div class="test" data-aos="flip-up">
+        <div class="test animate__animated animate__bounceInDown">
             <?php require '../core/templates/form.tpl.php'; ?>
         </div>
     </main>
 
-
-
-
-
-
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-</body>
-
-</html>
+    <?php require '../core/templates/footer.php';

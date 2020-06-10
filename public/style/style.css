@@ -3,7 +3,7 @@
   font-family: 'Vollkorn', serif;
 }
 header {
-  background-color: #eee;
+  background-color: black;
 }
 
 .container {
@@ -23,11 +23,24 @@ header {
   cursor: pointer;
 }
 
+.hero {
+  height: 100px;
+  background-color:rgb(196, 216, 223);
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 0px 1.5px #eee;
+}
+
+.container > h1 {
+  color: white;
+}
+
 .nav a {
   text-decoration: none;
   margin-right: 10px;
   font-size: 1.123rem;
-  color: rgb(107, 33, 76);
+  /* color: rgb(107, 33, 76); */
+  color: white;
 }
 
 .nav a:hover {
@@ -58,6 +71,7 @@ label {
   margin-bottom: 5px;
   margin-top: 10px;
   font-size: 1.123rem;
+  color: white;
 }
 
 input {
@@ -93,16 +107,16 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-  -webkit-animation: expand 2s;
+  margin-top: 50px;
 }
 
 .test {
   padding: 20px;
   width: 30%;
   border-radius: 8px;
-  box-shadow: 0px 0px 3px 3px rgb(107, 33, 76);
-  background-color: rgb(238, 220, 220);
+  box-shadow: 0px 0px 4px 5px #eee;
+  /* background-color: rgb(238, 220, 220); */
+  background-color: rgb(146, 193, 238);
 }
 
 .users {
@@ -132,11 +146,18 @@ tr {
   padding: 8px;
   border: 2px solid #eee;
 }
-@-webkit-keyframes expand {
-  0% {
-    height: 0px;
-  }
-  50% {
-    height: 500px;
-  }
+footer {
+  background-color: black;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer h2 {
+  font-size: 1.123rem;
+  color: white;
 }
