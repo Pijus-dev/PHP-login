@@ -1,14 +1,10 @@
 <?php
 require '../bootloader.php';
-require_once ROOT . '/core/classes/FileDB.php';
 
-if (!isset($_SESSION['username'])) {
+
+if (!is_logged_in()) {
     header('Location:/login.php');
 }
-
-$db = new FileDB(DB_FILE);
-$db->load();
-$rows = $db->getData();
 
 /**
  * filter_names filters usernames from database
@@ -16,19 +12,27 @@ $rows = $db->getData();
  * @param  mixed $row
  * @return array
  */
-function filter_names($rows)
+function filter_names()
 {
-    $new_row = [];
-    foreach ($rows['sessions'] as $user) {
-        if ($user['user'] === $_SESSION['username']) {
-            $user['timestamp'] = date('m/d/Y H:i:s', $user['timestamp']);
-            $new_row[] = $user;
-        }
-    }
+    $rows = App::$db->getRowsWhere('records', ['user' => $_SESSION['username']]);
 
-    return $new_row;
+    convert_time($rows);
+
+    return $rows;
 }
 
+/**
+ * convert_time function converts time from unix timestamp to local date
+ *
+ * @param  mixed $rows
+ * @return void
+ */
+function convert_time(&$rows)
+{
+    foreach ($rows as  &$row) {
+        $row['timestamp'] = date('Y-m-d H:i:s', $row['timestamp']);
+    }
+}
 
 $table = [
     'attr' => [
@@ -39,29 +43,16 @@ $table = [
         'Last Time Signed',
         'Session_id'
     ],
-    'rows' => filter_names($rows)
+    'rows' => filter_names()
 ];
 
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php require '../core/templates/head.php'; ?>
+<?php require '../core/templates/navbar.php'; ?>
+<div class="users">
+    <?php require '../core/templates/table.tpl.php'; ?>
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&family=Lexend+Tera&family=Vollkorn&display=swap">
-    <link rel="icon" type="image/png" href="img/logo.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-    <link rel="stylesheet" href="style/style.css">
-</head>
-
-<body>
-    <?php require '../core/templates/navbar.php'; ?>
-    <div class="users">
-        <?php require '../core/templates/table.tpl.php'; ?>
-    </div>
-
-    <?php require '../core/templates/footer.php'; ?>
+<?php require '../core/templates/footer.php'; ?>

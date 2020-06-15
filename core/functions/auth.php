@@ -4,19 +4,18 @@
  * is_logged_in checks if the user is logged in
  * @return bool
  */
-function is_logged_in(): bool
+function is_logged_in()
 {
     if (isset($_SESSION['username'])) {
-        $users = file_to_array(DB_FILE);
-
-        foreach ($users['users'] as $user) {
-            if ($_SESSION['password'] === $user['password'] && $_SESSION['username'] === $user['password']) {
-                return true;
-            }
-        }
+        $db = new FileDB(DB_FILE);
+        $db->load();
+        $user = $db->getRowWhere('users', [
+            'email' => $_SESSION['username'], 
+            'password' => $_SESSION['password']
+        ]);
+      
+         return $user ? true : false;
     }
-
-    return false;
 }
 
 /**

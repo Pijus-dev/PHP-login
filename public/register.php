@@ -1,8 +1,6 @@
 <?php
 require_once '../bootloader.php';
-require_once ROOT . '/core/classes/FileDB.php'; 
 
-$db = new FileDB(DB_FILE);
 
 $form = [
     'attrs' => [
@@ -11,9 +9,17 @@ $form = [
         'class' => 'my_class'
     ],
     'fields' => [
-        'Name' => [
+        'name' => [
             'label' => 'Name',
             'type' => 'text',
+            'validators' => [
+                'validate_field_not_empty',
+                'validate_field_empty_space',
+            ],
+        ],
+        'email' => [
+            'label' => 'Email',
+            'type' => 'email',
             'validators' => [
                 'validate_field_not_empty',
                 'validate_field_empty_space',
@@ -72,6 +78,7 @@ $form = [
 
 
 
+
 /**
  * form_success shows an success message if everything went well
  *
@@ -82,16 +89,11 @@ $form = [
 function form_success(&$form, $form_values)
 {
     unset($form_values['password_repeat']);
-    $db = new FileDB(DB_FILE);
-    $db->load();
-    $data = $db->getData();
+    App::$db->createTable('users');
 
     $form_values['password'] = password_hash($form_values['password'], PASSWORD_BCRYPT);
 
-    $data['users'][] = $form_values;
-
-    $db->setData($data);
-    $db->save();
+    App::$db->insertRow('users', $form_values);
 
     $form['success_message'] = 'Successfully registered';
 }
@@ -117,25 +119,12 @@ if ($form_values) {
 
 
 ?>
-<html lang="en">
+<?php require '../core/templates/head.php'; ?>
+<?php require '../core/templates/navbar.php'; ?>
+<main>
+    <div class="test animate__animated animate__bounceInDown">
+        <?php require '../core/templates/form.tpl.php'; ?>
+    </div>
+</main>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Generator</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&family=Lexend+Tera&family=Vollkorn&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-    <link rel="icon" type="image/png" href="img/logo.png" />
-    <link rel="stylesheet" href="style/style.css">
-
-</head>
-
-<body>
-    <?php require '../core/templates/navbar.php'; ?>
-    <main>
-        <div class="test animate__animated animate__bounceInDown">
-            <?php require '../core/templates/form.tpl.php'; ?>
-        </div>
-    </main>
-
-    <?php require '../core/templates/footer.php';
+<?php require '../core/templates/footer.php';

@@ -82,6 +82,9 @@ input {
   border-right: none;
   border-left: none;
 }
+::placeholder {
+  font-size: 1.123rem;
+}
 
 form {
   margin: 0 auto;
@@ -123,6 +126,15 @@ main {
   display: flex;
   justify-content: center;
 }
+
+.profile {
+  width: 60%;
+  margin: 20px auto;
+  padding-bottom: 15px;
+  box-shadow: 0px 2px 4px 5px #eee;
+  border-radius: 10px;
+}
+
 
 .users-table {
   width: 40%;

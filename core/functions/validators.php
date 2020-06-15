@@ -143,15 +143,13 @@ function validate_fields_match($form_values, &$form, $params)
  */
 function validate_unique_user(array $form_values, array &$form): bool
 {
-    $db = new FileDB(DB_FILE);
-    $db->load();
-    $users =  $db->getData();
-    foreach ($users as $user) {
-        if (isset($form_values['Name']) === isset($user['Name'])) {
-            $form['error_message'] = 'User already exists';
-            return false;
-        }
+    $user = App::$db->getRowWhere('users', ['email' => $form_values['email']]);
+
+    if ($user) {
+        $form['error_message'] = 'User already exists';
+        return false;
     }
+
     return true;
 }
 
@@ -164,16 +162,9 @@ function validate_unique_user(array $form_values, array &$form): bool
  */
 function validate_login($form_values, &$form)
 {
-    $db = new FileDB(DB_FILE);
-    $db->load();
-    $users =  $db->getData();
-    foreach ($users as $user) {
-        $user['password'] = password_verify(isset($form_values['password']), isset($user['password']));
-        if (isset($form_values['Name']) === isset($user['Name']) && isset($form_values['password']) === isset($user['password'])) {
-            return true;
-        } else {
-            $form['error_message'] = 'User does not exist';
-        }
+    $user = App::$db->getRowWhere('users', ['email' => $form_values['email']]);
+    if ($user &&  password_verify($form_values['password'], $user['password'])) {
+        return true;
     }
 
     return false;
