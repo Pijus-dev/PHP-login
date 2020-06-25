@@ -9,5 +9,7 @@
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link rel="stylesheet" href="style/style.css">
+    <script src="js/pixel.js" defer></script>
+    <script src="js/app.js" defer></script>
 </head>
 <body>

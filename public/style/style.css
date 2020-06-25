@@ -15,13 +15,25 @@ header {
   justify-content: space-between;
 }
 
-#logo {
+.logo {
   height: 60px;
   vertical-align: middle;
+  animation: logo infinite 10s linear;
 }
-#logo:hover {
+
+.logo:hover {
   cursor: pointer;
 }
+
+/* @keyframes logo {
+  
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
 
 .hero {
   height: 100px;
@@ -35,16 +47,30 @@ header {
   color: white;
 }
 
-.nav a {
+.nav  >  a {
   text-decoration: none;
   margin-right: 10px;
   font-size: 1.123rem;
-  /* color: rgb(107, 33, 76); */
   color: white;
+  position: relative;
 }
 
-.nav a:hover {
-  text-decoration: underline;
+.nav > a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #FFF;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.7s ease-in-out;
+}
+
+.nav > a:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
 }
 
 .error {
@@ -56,6 +82,7 @@ header {
   padding: 10px;
   width: 90%;
   border-radius: 8px;
+  margin: 0 auto;
 }
 
 .success {
@@ -104,6 +131,8 @@ form {
 
 select {
   padding: 3px;
+  width: 80%;
+  border-radius: 8px;
 }
 
 main {
@@ -118,7 +147,6 @@ main {
   width: 30%;
   border-radius: 8px;
   box-shadow: 0px 0px 4px 5px #eee;
-  /* background-color: rgb(238, 220, 220); */
   background-color: rgb(146, 193, 238);
 }
 
@@ -155,7 +183,7 @@ thead {
 th,
 td,
 tr {
-  padding: 8px;
+  padding: 4px;
   border: 2px solid #eee;
 }
 footer {
@@ -172,4 +200,37 @@ footer {
 footer h2 {
   font-size: 1.123rem;
   color: white;
+}
+
+.wall {
+  height: 500px;
+  width: 500px;
+  background: #eee;
+  position: relative;
+}
+
+.pixel {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  border: 1px solid black;
+  position: relative;
+}
+
+.pixelNotification { 
+  display: none;
+  height: 200px;
+  width: 220px;
+  border-radius: 8px;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  position: absolute;
+}
+
+.pixelNotification > * {
+  color: white;
+  margin-bottom: 10px;
 }

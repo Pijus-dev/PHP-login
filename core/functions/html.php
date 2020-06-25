@@ -85,3 +85,16 @@ function option_attr(string $option_id, array $field): string
     
     return form_attrs($attrs);
 }
+
+/**
+ * Generate class "pixel" div style, with position coordinates and background color.
+ *
+ * @param int $x
+ * @param int $y
+ * @param string $color
+ * @return string
+ */
+function pixel_attr(int $x, int $y, string $color): string
+{
+    return "style=\" background-color: $color; top: {$y}px; left: {$x}px;\"";
+}

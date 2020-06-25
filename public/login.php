@@ -1,7 +1,12 @@
 <?php
 require '../bootloader.php';
 
-$form = [
+use App\App;
+use App\User\User;
+use Core\Views\Form;
+use App\Views\Navigation;
+
+$data = [
     'attrs' => [
         'method' => 'POST',
         'id' => 'my_id',
@@ -48,6 +53,7 @@ $form = [
     ]
 ];
 
+
 /**
  * form_success shows an success message if everything went well
  *
@@ -55,11 +61,13 @@ $form = [
  * @param  mixed $form_values
  * @return void
  */
-function form_success(&$form, $form_values)
+function form_success(&$data, $form_values)
 {
     $user = App::$db->getRowWhere('users', ['email' => $form_values['email']]);
-    $_SESSION['username'] = $user['email'];
-    $_SESSION['password'] = $user['password'];
+
+    if ($user) {
+        App::$session->login($user['email'], $user['password']);
+    }
 
     record_session($form_values['email']);
     header('Location:/home.php');
@@ -87,25 +95,31 @@ function record_session($user)
  * @param  array $form_values
  * @return mixed
  */
-function form_fail(&$form, $form_values)
+function form_fail(&$data, $form_values)
 {
-    $form['error_message'] = 'Failed to login';
+    $data['error_message'] = 'Failed to login';
 }
 
-$form_values = sanitize_form_values($form);
+$view = new Form($data);
+$navigation = new Navigation();
+
+$form_values = sanitize_form_values($view->getData());
 if ($form_values) {
-
-    $success =  validate_form($form, $form_values);
+     validate_form($view->getData(), $form_values);
 }
+
+$form_template = $view->render();
+
+require_once  ROOT .  '/core/templates/head.php';
+print $navigation->render();
+
 ?>
-<?php require '../core/templates/head.php'; ?>
-    <?php require '../core/templates/navbar.php'; ?>
-    <main>
-        <div class="test animate__animated animate__bounceInDown">
-            <?php require '../core/templates/form.tpl.php'; ?>
-        </div>
-    </main>
 
+<main>
+    <div class="test animate__animated animate__bounceInDown">
+        <?php print $form_template; ?>
+    </div>
+    <button id="mygtukas">Check</button>
+</main>
 
-
-    <?php require '../core/templates/footer.php';
+<?php require  ROOT .  '/core/templates/footer.php'; ?>

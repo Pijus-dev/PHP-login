@@ -1,9 +1,18 @@
 <?php
 require '../bootloader.php';
+use App\App;
+use App\Views\Navigation;
+use App\Pixels\Model;
+
+$pixel = Model::getWhere([])[0];
+var_dump($pixel);
+
+var_dump($pixel->id);
 
 
-if (!is_logged_in()) {
-    header('Location:/login.php');
+if (!App::$session->getUser()){
+    var_dump(App::$session->getUser());
+    header('Location: /login.php');
 }
 
 /**
@@ -46,13 +55,14 @@ $table = [
     'rows' => filter_names()
 ];
 
-
+require ROOT .  '/core/templates/head.php';
+$navigation = new Navigation();
+print $navigation->render();
 
 ?>
-<?php require '../core/templates/head.php'; ?>
-<?php require '../core/templates/navbar.php'; ?>
+
 <div class="users">
-    <?php require '../core/templates/table.tpl.php'; ?>
+    <?php require ROOT .  '/core/templates/table.tpl.php'; ?>
 </div>
 
-<?php require '../core/templates/footer.php'; ?>
+<?php require ROOT .  '/core/templates/footer.php'; ?>

@@ -1,11 +1,11 @@
-<?php if (isset($form['success_message'])) : ?>
-    <div class="notification success"><?php print $form['success_message']; ?></div>
-<?php elseif (isset($form['error_message'])) : ?>
-    <div class="notification fail"><?php print $form['error_message']; ?></div>
+<?php if (isset($data['success_message'])) : ?>
+    <div class="notification success"><?php print $data['success_message']; ?></div>
+<?php elseif (isset($data['error_message'])) : ?>
+    <div class="notification fail"><?php print $data['error_message']; ?></div>
     <?php endif; ?>
-    <form <?php print form_attrs($form['attrs'] ?? []); ?>>
+    <form <?php print form_attrs($data['attrs'] ?? []); ?>>
     <!--Field generation start-->
-    <?php foreach ($form['fields'] ?? [] as $field_id => $field) : ?>
+    <?php foreach ($data['fields'] ?? [] as $field_id => $field) : ?>
 
         <?php if (isset($field['label'])) : ?>
             <label><?php print $field['label']; ?></label>
@@ -43,7 +43,7 @@
     <!--Field generation end-->
 
     <!--Button generation start-->
-    <?php foreach ($form['buttons'] ?? [] as $button_id => $button) : ?>
+    <?php foreach ($data['buttons'] ?? [] as $button_id => $button) : ?>
         <button <?php print button_attrs($button_id, $button) ?>>
             <?php print $button['title']; ?>
         </button>

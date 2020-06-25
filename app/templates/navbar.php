@@ -1,23 +1,29 @@
 <?php
+
 $url = basename($_SERVER['REQUEST_URI']);
 $final_url = rtrim($url, '.php');
 
-if (isset($_SESSION['username'])) {
-    $user = App::$db->getRowWhere('users', ['email' => $_SESSION['username']]);
+if (App\App::$session->getUser()) {
+    $user = App\App::$db->getRowWhere('users', ['email' => $_SESSION['username']]);
 }
 
 ?>
+
 <header>
     <div class="container">
-        <img class="animate__animated animate__flipInY" src="/img/logo.png" id="logo" alt="logo">
+        <img class="logo" src="/img/logo.png"  alt="logo">
         <div class="nav">
-            <?php if (isset($_SESSION['username']) == true) : ?>
+           <?php if (App\App::$session->getUser()) : ?>
                 <a href="profile.php">Hi, <?php print $user['name'] ?></a>
                 <a href="home.php">Home</a>
+                <a href="add.php">Add</a>
+                <a href="pixelWall.php">PixelWall</a>
+                <span id="navbar"></span>
                 <a href="logout.php">LogOut</a>
             <?php else : ?>
                 <a href="login.php">Login</a>
                 <a href="register.php">Register</a>
+                <a href="pixelWall.php">PixelWall</a>
             <?php endif; ?>
         </div>
     </div>

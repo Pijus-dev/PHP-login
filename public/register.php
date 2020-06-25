@@ -1,8 +1,12 @@
 <?php
 require_once '../bootloader.php';
 
+use App\App;
+use App\User\User;
+use Core\Views\Form;
+use App\Views\Navigation;
 
-$form = [
+$data = [
     'attrs' => [
         'method' => 'POST',
         'id' => 'my_id',
@@ -32,10 +36,6 @@ $form = [
                 'validate_field_not_empty',
                 'validate_field_empty_space',
                 'validate_field_password',
-                // 'validate_field_length' => [
-                //     'min' => 8,
-                //     'max' => 16
-                // ]
             ]
         ],
         'password_repeat' => [
@@ -45,10 +45,6 @@ $form = [
                 'validate_field_not_empty',
                 'validate_field_empty_space',
                 'validate_field_password',
-                // 'validate_field_length' => [
-                //     'min' => 8,
-                //     'max' => 16
-                // ]
             ]
         ]
     ],
@@ -77,8 +73,6 @@ $form = [
 ];
 
 
-
-
 /**
  * form_success shows an success message if everything went well
  *
@@ -86,19 +80,19 @@ $form = [
  * @param  mixed $form_values
  * @return void
  */
-function form_success(&$form, $form_values)
+function form_success(&$data, $form_values)
 {
-    unset($form_values['password_repeat']);
-    App::$db->createTable('users');
-
     $form_values['password'] = password_hash($form_values['password'], PASSWORD_BCRYPT);
 
-    App::$db->insertRow('users', $form_values);
+    $user = new User($form_values);
+
+    App::$db->createTable('users');
+    App::$db->insertRow('users', $user->_getData());
 
     $form['success_message'] = 'Successfully registered';
 }
 
-/**
+/**$
  * form_fail shows an error message if form returns false
  *
  * @param  array $form
@@ -111,20 +105,25 @@ function form_fail(&$form, $form_values)
 }
 
 
-$form_values = sanitize_form_values($form);
-if ($form_values) {
+$view = new Form($data);
+$navigation = new Navigation();
 
-    $success =  validate_form($form, $form_values);
+$form_values = sanitize_form_values($view->getData());
+
+if ($form_values) {
+     validate_form($view->getData(), $form_values);
 }
 
+$form_template = $view->render();
+
+require ROOT . '/core/templates/head.php';
+print $navigation->render();
 
 ?>
-<?php require '../core/templates/head.php'; ?>
-<?php require '../core/templates/navbar.php'; ?>
 <main>
     <div class="test animate__animated animate__bounceInDown">
-        <?php require '../core/templates/form.tpl.php'; ?>
+        <?php print $form_template; ?>
     </div>
 </main>
 
-<?php require '../core/templates/footer.php';
+<?php require ROOT . '/core/templates/footer.php'; ?>

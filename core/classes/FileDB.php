@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class FileDB
 {
     private $file_name;
@@ -26,21 +28,39 @@ class FileDB
      *
      * @return void
      */
-    public function save()
+    public function save(): bool
     {
-        array_to_file($this->data, $this->file_name);
+        $data = json_encode($this->data);
+        $file = file_put_contents($this->file_name, $data);
+
+        if ($file === false) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
      * load function loads data from the file
      *
-     * @return array
+     * @return bool
      */
     public function load()
     {
-        $data_array = file_to_array($this->file_name);
-        $this->data = $data_array ? $data_array : [];
+        // $data_array = file_to_array($this->file_name);
+        // $this->data = $data_array ? $data_array : [];
+        if (file_exists($this->file_name)) {
+            $data = file_get_contents($this->file_name);
+            if ($data !== false) {
+                $this->data =  json_decode($data, true);
+                return true;
+            }
+        }
+
+        $this->data = [];
+        return false;
     }
+
 
     /**
      * getData function gest data from the file
@@ -214,7 +234,7 @@ class FileDB
 
         return false;
     }
-    
+
     /**
      * getRowsWhere puts all the rows into array where every condition is met
      *
@@ -237,13 +257,14 @@ class FileDB
             }
 
             if ($conditions_met) {
+                $row['id'] = $row_id;
                 $rows[$row_id] = $row;
             }
         }
 
         return $rows;
     }
-    
+
     /**
      * getRowWhere return the single row if each condition is met
      *
@@ -255,7 +276,7 @@ class FileDB
     {
         foreach ($this->data[$table_name] ?? [] as $row_id => $row) {
             $conditions_met = true;
-            
+
             foreach ($conditions as $condition_key => $condition) {
                 if ($row[$condition_key] !== $condition) {
                     $conditions_met = false;

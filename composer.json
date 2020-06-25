@@ -1,0 +1,9 @@
+{
+    "name": "FORMTEMPLATES",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/classes",
+            "Core\\": "core/classes"
+        }
+    }
+}

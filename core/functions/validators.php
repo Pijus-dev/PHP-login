@@ -43,7 +43,7 @@ function validate_field_empty_space($field_value, &$field)
  */
 function validate_field_is_numeric($field_value, &$field)
 {
-    if (is_int($field_value)) {
+    if (is_numeric($field_value)) {
         return true;
     } else {
         $field['error'] = 'Value has to be a number';
@@ -143,7 +143,7 @@ function validate_fields_match($form_values, &$form, $params)
  */
 function validate_unique_user(array $form_values, array &$form): bool
 {
-    $user = App::$db->getRowWhere('users', ['email' => $form_values['email']]);
+    $user = App\App::$db->getRowWhere('users', ['email' => $form_values['email']]);
 
     if ($user) {
         $form['error_message'] = 'User already exists';
@@ -162,10 +162,13 @@ function validate_unique_user(array $form_values, array &$form): bool
  */
 function validate_login($form_values, &$form)
 {
-    $user = App::$db->getRowWhere('users', ['email' => $form_values['email']]);
+    $user = App\App::$db->getRowWhere('users', ['email' => $form_values['email']]);
     if ($user &&  password_verify($form_values['password'], $user['password'])) {
         return true;
     }
 
     return false;
 }
+
+
+
