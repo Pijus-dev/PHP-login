@@ -1,0 +1,1 @@
+<a <?php print form_attrs($data['attr']);?>> <?php print $data['title'];?> </a>

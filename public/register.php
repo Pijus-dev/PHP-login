@@ -5,6 +5,7 @@ use App\App;
 use App\User\User;
 use Core\Views\Form;
 use App\Views\Navigation;
+use App\User\Model;
 
 $data = [
     'attrs' => [
@@ -85,14 +86,14 @@ function form_success(&$data, $form_values)
     $form_values['password'] = password_hash($form_values['password'], PASSWORD_BCRYPT);
 
     $user = new User($form_values);
+    $user->role = User::ROLE_USER;
 
-    App::$db->createTable('users');
-    App::$db->insertRow('users', $user->_getData());
+    Model::insert($user);
 
     $form['success_message'] = 'Successfully registered';
 }
 
-/**$
+/**
  * form_fail shows an error message if form returns false
  *
  * @param  array $form

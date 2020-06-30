@@ -1,11 +1,12 @@
 <?php
+use App\User\Model;
 
 $url = basename($_SERVER['REQUEST_URI']);
-$final_url = rtrim($url, '.php');
+$title = preg_replace('/\.php.*/', '', $url);
 
 if (App\App::$session->getUser()) {
     $user = App\App::$db->getRowWhere('users', ['email' => $_SESSION['username']]);
-}
+};
 
 ?>
 
@@ -14,22 +15,22 @@ if (App\App::$session->getUser()) {
         <img class="logo" src="/img/logo.png"  alt="logo">
         <div class="nav">
            <?php if (App\App::$session->getUser()) : ?>
-                <a href="profile.php">Hi, <?php print $user['name'] ?></a>
-                <a href="home.php">Home</a>
-                <a href="add.php">Add</a>
-                <a href="pixelWall.php">PixelWall</a>
-                <span id="navbar"></span>
-                <a href="logout.php">LogOut</a>
+                <a href="/profile.php">Hi, <?php print $user['name']; ?></a>
+                <a href="/admin/products/create.php">Add</a>
+                <a href="/admin/products/view.php">View</a>
+                <a href="/products.php">Products</a>
+                <a href="/cart.php">Cart</a>
+                <a href="/logout.php">LogOut</a>
             <?php else : ?>
-                <a href="login.php">Login</a>
-                <a href="register.php">Register</a>
-                <a href="pixelWall.php">PixelWall</a>
+                <a href="/products.php">Products</a>
+                <a href="/login.php">Login</a>
+                <a href="/register.php">Register</a>
             <?php endif; ?>
         </div>
     </div>
 </header>
 <div class="hero">
     <div class="container animate__animated animate__slideInRight">
-        <h1><?php print ucfirst($final_url); ?></h1>
+        <h1><?php print ucfirst($title); ?></h1>
     </div>
 </div>

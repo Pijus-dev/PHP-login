@@ -1,10 +1,14 @@
 <?php
+
 namespace App\User;
 
 use Core\DataHolder;
 
 class User extends DataHolder
 {
+    const  ROLE_ADMIN = 1;
+    const  ROLE_USER  = 0;
+
     protected function setUsername(string $value)
     {
         $this->username = $value;
@@ -12,7 +16,7 @@ class User extends DataHolder
 
     protected function getUsername()
     {
-       return  $this->username ?? null;
+        return  $this->username ?? null;
     }
 
     protected function setEmail(string $email)
@@ -24,7 +28,7 @@ class User extends DataHolder
     {
         return $this->email ?? null;
     }
-    
+
     protected function setName($name)
     {
         $this->name = $name;
@@ -44,4 +48,25 @@ class User extends DataHolder
     {
         return  $this->password ?? null;
     }
+
+    protected function setRole(int $role)
+    {
+        $this->role = $role;
+    }
+
+    protected function getRole()
+    {
+       return  $this->role ?? null;
+    }
+
+    protected function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    protected function getId()
+    {
+        return $this->id ?? null;
+    }
+    
 }
