@@ -1,11 +1,11 @@
 <?php
-use App\User\Model;
+use App\App;
 
 $url = basename($_SERVER['REQUEST_URI']);
 $title = preg_replace('/\.php.*/', '', $url);
 
-if (App\App::$session->getUser()) {
-    $user = App\App::$db->getRowWhere('users', ['email' => $_SESSION['username']]);
+if (App::$session->getUser()) {
+    $user = App::$session->getUser();
 };
 
 ?>
@@ -14,8 +14,8 @@ if (App\App::$session->getUser()) {
     <div class="container">
         <img class="logo" src="/img/logo.png"  alt="logo">
         <div class="nav">
-           <?php if (App\App::$session->getUser()) : ?>
-                <a href="/profile.php">Hi, <?php print $user['name']; ?></a>
+           <?php if (App::$session->getUser()) : ?>
+                <a href="/profile.php">Hi, <?php print $user->name; ?></a>
                 <a href="/admin/products/create.php">Add</a>
                 <a href="/admin/products/view.php">View</a>
                 <a href="/products.php">Products</a>

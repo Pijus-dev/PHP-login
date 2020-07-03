@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views;
+namespace App\Views\Forms\Carts;
 
 use Core\Views\Form;
 

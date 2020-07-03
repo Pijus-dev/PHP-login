@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views\Forms;
+namespace App\Views\Forms\Drinks;
 
 use Core\Views\Form;
 
@@ -54,7 +54,6 @@ class DrinkForm extends Form
                 'price' => [
                     'label' => 'Price (EUR)',
                     'type' => 'text',
-
                     'validators' => [
                         'validate_field_is_numeric',
                         'validate_field_not_empty',

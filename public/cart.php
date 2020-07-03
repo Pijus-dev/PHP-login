@@ -2,10 +2,11 @@
 require '../bootloader.php';
 
 use App\Views\Navigation;
-use App\Views\CartData;
+use App\Views\Forms\Carts\CartData;
 use App\Cart\Items\Model;
 use App\Cart\Items\Item;
 use App\Views\Forms\DeleteForm;
+use Core\Views\Form;
 
 function delete_success(&$form, $form_values)
 {
@@ -14,12 +15,8 @@ function delete_success(&$form, $form_values)
 }
 
 $delete_form = new DeleteForm();
+$delete_form->validate();
 
-$form_values = sanitize_form_values($delete_form->getData());
-
-if ($form_values) {
-    validate_form($delete_form->getData(), $form_values);
-}
 
 require_once  ROOT .  '/core/templates/head.php';
 

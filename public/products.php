@@ -2,12 +2,12 @@
 require '../bootloader.php';
 
 use App\Views\Navigation;
-use App\Views\CatalogueData;
-use App\Views\AddItem;
+use App\Views\Forms\Carts\CatalogueData;
+use App\Views\Forms\Carts\AddItem;
 use App\Cart\Items\Item;
 use App\Cart\Items\Model;
 use App\App;
-use App\Views\Catalogue;
+use Core\Views\Form;
 
 function add_success(&$form, $form_values)
 {
@@ -22,11 +22,9 @@ function add_success(&$form, $form_values)
 
 $add_form = new AddItem();
 
-$form_values = sanitize_form_values($add_form->getData());
+$view = new Form($add_form->getData());
+$view->validate();
 
-if ($form_values) {
-    validate_form($add_form->getData(), $form_values);
-}
 
 $card_view = new CatalogueData();
 $nav_view = new Navigation();

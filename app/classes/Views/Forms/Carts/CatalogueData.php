@@ -1,7 +1,7 @@
 <?php 
-namespace App\Views;
+namespace App\Views\Forms\Carts;
 use App\Drinks\Model;
-use App\Views\AddItem;
+use App\Views\Forms\Carts\AddItem;
 use Core\Views\Form;
 
 class CatalogueData extends Catalogue

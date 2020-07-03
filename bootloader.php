@@ -5,7 +5,6 @@ define('DB_FILE', ROOT . '/app/data/data.json');
 // core functions
 require ROOT . '/core/functions/validators.php';
 require ROOT . '/core/functions/html.php';
-require ROOT . '/core/functions/forms.php';
 
 // app functions
 require ROOT . '/app/functions/validators.php';

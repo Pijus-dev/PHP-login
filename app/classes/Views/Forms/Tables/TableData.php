@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views;
+namespace App\Views\Forms\Tables;
 
 use App\Drinks\Model;
 use Core\View;
@@ -32,7 +32,7 @@ class TableData extends Table
     }
 
 
-    public function getTableData()
+    protected function getTableData()
     {
         $drinks = Model::getWhere([]);
 

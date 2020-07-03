@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace App\Views\Forms;
+namespace App\Views\Forms\Drinks;
 
 class DrinkEditForm extends DrinkForm
 {
@@ -8,5 +8,6 @@ class DrinkEditForm extends DrinkForm
     {
         parent::__construct($data);
         $this->data['buttons']['save']['title'] = 'Edit';
+        $this->data['fields']['id']['type'] = 'hidden';
     }
 }

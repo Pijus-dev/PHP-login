@@ -1,77 +1,10 @@
 <?php
 require_once '../bootloader.php';
 
-use App\App;
 use App\User\User;
-use Core\Views\Form;
 use App\Views\Navigation;
 use App\User\Model;
-
-$data = [
-    'attrs' => [
-        'method' => 'POST',
-        'id' => 'my_id',
-        'class' => 'my_class'
-    ],
-    'fields' => [
-        'name' => [
-            'label' => 'Name',
-            'type' => 'text',
-            'validators' => [
-                'validate_field_not_empty',
-                'validate_field_empty_space',
-            ],
-        ],
-        'email' => [
-            'label' => 'Email',
-            'type' => 'email',
-            'validators' => [
-                'validate_field_not_empty',
-                'validate_field_empty_space',
-            ],
-        ],
-        'password' => [
-            'label' => 'Password',
-            'type' => 'password',
-            'validators' => [
-                'validate_field_not_empty',
-                'validate_field_empty_space',
-                'validate_field_password',
-            ]
-        ],
-        'password_repeat' => [
-            'label' => 'Confirm_Password',
-            'type' => 'password',
-            'validators' => [
-                'validate_field_not_empty',
-                'validate_field_empty_space',
-                'validate_field_password',
-            ]
-        ]
-    ],
-    'validators' => [
-        'validate_fields_match' => [
-            'password',
-            'password_repeat'
-        ],
-        'validate_unique_user',
-    ],
-    'callbacks' => [
-        'success' => 'form_success',
-        'fail' => 'form_fail',
-    ],
-    'buttons' => [
-        'save' => [
-            'title' => 'submit',
-            'extra' => [
-                'attr' => [
-                    'class' => 'btn'
-                ]
-            ]
-        ]
-    ]
-
-];
+use App\Views\Forms\Auth\Register;
 
 
 /**
@@ -106,14 +39,9 @@ function form_fail(&$form, $form_values)
 }
 
 
-$view = new Form($data);
+$view = new Register();
 $navigation = new Navigation();
-
-$form_values = sanitize_form_values($view->getData());
-
-if ($form_values) {
-     validate_form($view->getData(), $form_values);
-}
+$view->validate();
 
 $form_template = $view->render();
 
@@ -121,6 +49,7 @@ require ROOT . '/core/templates/head.php';
 print $navigation->render();
 
 ?>
+
 <main>
     <div class="test animate__animated animate__bounceInDown">
         <?php print $form_template; ?>

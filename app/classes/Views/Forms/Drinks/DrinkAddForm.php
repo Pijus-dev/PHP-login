@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Views\Forms;
+namespace App\Views\Forms\Drinks;
 
 class DrinkAddForm extends DrinkForm
 {

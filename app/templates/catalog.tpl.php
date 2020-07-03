@@ -6,8 +6,8 @@ foreach ($data as $card) : ?>
     <div class="card">
         <div class="card-border">
             <p>Price: <?php print $card['price']; ?>&euro;</p>
-            <div class="card-img">
-                <img src="<?php print $card['photo']; ?>" alt="drink photo">
+            <div>
+                <img class="card-img" src="<?php print $card['photo']; ?>" alt="drink photo">
             </div>
             <div class="card-info">
                 <h2><?php print $card['name']; ?></h2>

@@ -1,7 +1,12 @@
 * {
   margin: 0;
-  font-family: 'Vollkorn', serif;
+  font-family: "Vollkorn", serif;
 }
+
+body {
+  position: relative;
+}
+
 header {
   background-color: black;
 }
@@ -26,7 +31,6 @@ header {
 }
 
 @keyframes logo {
-  
   from {
     transform: rotate(0deg);
   }
@@ -37,7 +41,7 @@ header {
 
 .hero {
   height: 100px;
-  background-color:rgb(196, 216, 223);
+  background-color: rgb(196, 216, 223);
   display: flex;
   align-items: center;
   box-shadow: 0px 0px 0px 1.5px #eee;
@@ -47,7 +51,7 @@ header {
   color: white;
 }
 
-  a {
+a {
   text-decoration: none;
   margin-right: 10px;
   font-size: 1.123rem;
@@ -55,20 +59,20 @@ header {
   position: relative;
 }
 
- a::before {
+a::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #FFF;
+  background-color: #fff;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.7s ease-in-out;
 }
 
- a:hover::before {
+a:hover::before {
   visibility: visible;
   transform: scaleX(1);
 }
@@ -150,6 +154,21 @@ main {
   background-color: rgb(146, 193, 238);
 }
 
+.edit-form {
+  position: absolute;
+  height: 250px;
+  width: 250px;
+  left: 50%;
+  top: 50%;
+  z-index: 1000;
+  transform: translate(0%, -50%);
+  transform: translate(-50%, 0);
+  padding: 20px;
+  width: 30%;
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px 5px #eee;
+}
+
 .users {
   display: flex;
   justify-content: center;
@@ -181,7 +200,6 @@ table {
   background-color: rgb(216, 190, 190);
   color: black;
 }
-
 
 th,
 td,
@@ -239,6 +257,7 @@ footer h2 {
   text-align: center;
   cursor: pointer;
   transition: transform 0.25s ease-out;
+  z-index: 1;
 }
 
 .card:hover {
@@ -262,15 +281,25 @@ footer h2 {
   margin-top: 10px;
 }
 
-.card-img > img {
+.card-img {
   height: 180px;
   width: 180px;
+  object-fit: contain;
 }
 
 .card-border {
-  box-shadow: 3px 4px 5px 5px  #eee;
+  box-shadow: 3px 4px 5px 5px #eee;
   padding: 8px;
   border-radius: 8px;
+}
+
+.add {
+  position: absolute;
+  left: 80%;
+  color: white;
+  background-color: rgb(81, 196, 81);
+  padding: 2px 6px;
+  border-radius: 5px;
 }
 
 .add-item {
@@ -287,3 +316,13 @@ footer h2 {
   background-color: #5c3db3;
 }
 
+.delete-button {
+  background-color: rgb(235, 86, 86);
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.123rem;
+  margin-left: 8px;
+  color: white;
+}

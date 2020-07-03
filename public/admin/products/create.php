@@ -5,8 +5,9 @@ use App\App;
 use App\Drinks\Drink;
 use App\Drinks\Model;
 use App\Views\Navigation;
-use App\Views\Forms\DrinkAddForm;
+use App\Views\Forms\Drinks\DrinkAddForm;
 use App\User\User;
+use Core\Views\Form;
 
 if(!App::$session->getUser() || App::$session->getUser()->role === User::ROLE_USER) {
     header("HTTP/1.1 401 Unauthorized");
@@ -32,12 +33,7 @@ function form_fail(&$form, $form_values)
 
 
 $view = new DrinkAddForm();
-
-$form_values = sanitize_form_values($view->getData());
-
-if ($form_values) {
-    validate_form($view->getData(), $form_values);
-}
+$view->validate();
 
 
 require ROOT . '/core/templates/head.php';

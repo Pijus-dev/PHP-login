@@ -4,7 +4,7 @@ require '../../../bootloader.php';
 use App\Drinks\Drink;
 use App\Views\Navigation;
 use App\Drinks\Model;
-use App\Views\Forms\DrinkEditForm;
+use App\Views\Forms\Drinks\DrinkEditForm;
 use App\App;
 use App\User\User;
 
@@ -31,7 +31,6 @@ function form_fail(&$form, $form_values)
 
 $drink = Model::find($_GET['id']);
 $data = new DrinkEditForm();
-
 fill_form($data->getData(), $drink);
 
 
@@ -43,11 +42,8 @@ function fill_form(&$form, Drink $drink)
     }
 }
 
-$form_values = sanitize_form_values($data->getData());
+$data->validate();
 
-if ($form_values) {
-    validate_form($data->getData(), $form_values);
-}
 
 // html template starts
 $navigation = new Navigation();

@@ -1,5 +1,5 @@
 <?php 
-namespace App\Views;
+namespace App\Views\Forms\Tables;
 
 use Core\View;
 

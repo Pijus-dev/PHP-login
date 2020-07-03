@@ -6,8 +6,9 @@ use App\Views\Navigation;
 use App\Views\Forms\DeleteForm;
 use App\App;
 use App\User\User;
-use App\Views\TableData;
+use App\Views\Forms\Tables\TableData;
 use App\Drinks\Drink;
+use Core\Views\Form;
 
 if(!App::$session->getUser() || App::$session->getUser()->role === User::ROLE_USER) {
     header("HTTP/1.1 401 Unauthorized");
@@ -23,11 +24,9 @@ function delete_success(&$form, $form_values)
 
 $delete_form = new DeleteForm();
 
-$form_values = sanitize_form_values($delete_form->getData());
+$view = new Form($delete_form->getData());
+$view->validate();
 
-if ($form_values) {
-    validate_form($delete_form->getData(), $form_values);
-}
 
 require ROOT . '/core/templates/head.php';
 

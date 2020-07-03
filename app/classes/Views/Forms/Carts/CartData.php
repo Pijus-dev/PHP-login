@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Views;
-
-use Core\Views\Form;
+namespace App\Views\Forms\Carts;
 use App\App;
 use App\Cart\Items\Model;
 use App\Views\Forms\DeleteForm;
+use App\Views\Forms\Tables\Table;
 
 class CartData extends Table
 {
@@ -28,7 +27,7 @@ class CartData extends Table
         parent::__construct($data);
     }
 
-    public function getCartData()
+    protected function getCartData()
     {
         $items = Model::getWhere(['user_id' => App::$session->getUser()->id]);
 
